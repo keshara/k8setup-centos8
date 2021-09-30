@@ -65,6 +65,7 @@
     shell: |
       yum install -y containerd.io
       containerd config default > /etc/containerd/config.toml
+      sed -i '/\[plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runc.options\]/a\\t\    SystemdCgroup = true' /etc/containerd/config.toml
       systemctl start containerd && systemctl enable containerd
   
   - name: Creating a repository file for Kubernetes
